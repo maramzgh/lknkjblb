@@ -1,0 +1,45 @@
+.Nav {
+  margin-bottom: 25px;
+  box-shadow: 5px 2px 5px rgb(159, 156, 156);
+}
+
+.Brand {
+  font-weight: bold;
+  font-size: 1.4em;
+  margin-left: 20px;
+}
+
+.NavLink {
+  color: white;
+  margin-right: 15px;
+  font-size: 1.1em;
+}
+
+.SearchBox {
+  background-color: #fff;
+  color: #333;
+  width: 250px;
+  height: 40px;
+  border: none;
+}
+
+.SearchButton {
+  background-color: #fff;
+  color: #333;
+  border: none;
+}
+
+.SearchIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.ConnexionButton {
+  margin-right: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .SearchBox {
+    width: 100%;
+  }
+}

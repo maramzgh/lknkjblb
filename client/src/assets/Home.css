@@ -1,0 +1,33 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f9f9f9;
+}
+
+.main-container {
+  padding: 30px;
+  display: flex;
+}
+
+.title {
+  margin-top: 0px;
+}
+
+.error {
+  color: red;
+}
+
+.loading {
+  color: gray;
+}
+
+@media screen and (max-width: 768px) {
+  .home-container {
+    flex-direction: column;
+  }
+
+  .main-container {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,11 @@
+.Allsailboats {
+  display: flex;
+  flex-wrap: wrap;
+}
+.theSideBar {
+  flex: 1;
+  padding-right: 10px;
+}
+.theSailBoats {
+  flex: 5;
+}
