@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-
-const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationFailure }) => {
+const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComplete, onRegistrationFailure}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+
   const formData = { username, email, password };
   // eslint-disable-next-line
   const [usernameError, setUsernameError] = useState(false);
@@ -17,10 +18,15 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationFail
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  
 
   async function handleRegistration(event) {
     event.preventDefault();
+    onRegistrationSuccess();
+    // Check if the form data is empty
+    if (!username || !email || !password) {
+      setShow(false); // Close the modal when the form data is empty
+      return;
+    }
     try {
       const res = await fetch('http://localhost:5000/register', {
         method: 'POST',
@@ -41,15 +47,18 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationFail
       }
     } catch (error) {
       console.error('Error registering user:', error);
+      onRegistrationFailure();
     }
   }
+
+  const handleClose = () => setShow(false);
   const handleBackButtonClick = () => {
     setShow(false);
-    // Add any additional logic you want to perform when the back button is clicked
-}
+   
+};
 
   return (
-    <Modal show={show} onHide={() => setShow(false)}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Create an account</Modal.Title>
       </Modal.Header>
@@ -101,7 +110,7 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationFail
           <Button
               variant="primary"
               type="submit"
-              onClick={() => setShow(false)}
+              onClick={handleClose}
               style={{
                 backgroundColor: '#3f5c88',
                 border: 'none',
@@ -117,22 +126,22 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationFail
             </Button>
             
             <Modal.Footer>
-              <Button
-                variant="primary"
-                type="button"
-                style={{
-                  backgroundColor: '#000',
-                  border: 'none',
-                  borderRadius: '5px',
-                  fontSize: '1.2rem',
-                  fontWeight: '500',
-                  padding: '10px 20px',
-                }}
-                onClick={handleBackButtonClick}
-              >
-                Back
-              </Button>
-            </Modal.Footer>
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={handleBackButtonClick}
+              style={{
+                backgroundColor: '#000',
+                border: 'none',
+                borderRadius: '5px',
+                fontSize: '1.2rem',
+                fontWeight: '500',
+                padding: '10px 20px',
+              }}
+              
+            >
+              Back
+            </Button></Modal.Footer>
         
         </Form>
       </Modal.Body>

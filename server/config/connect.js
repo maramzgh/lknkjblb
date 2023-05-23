@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 
 mongoose
-  .connect(
-    'mongodb+srv://maram:mongodbtrial@cluster0.xus4tzx.mongodb.net/YachtInfos',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect('mongodb+srv://maram:mongodbtrial@cluster0.xus4tzx.mongodb.net/YachtInfos', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
-    console.log('connected');
+    console.log('Connected to MongoDB');
   })
   .catch((err) => {
-    console.log(err);
+    console.error('Error connecting to MongoDB:', err);
   });
 
 const userSchema = new mongoose.Schema({
@@ -33,6 +30,6 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 module.exports = {
-  User: User,
-  mongoose: mongoose,
+  User,
+  mongoose,
 };

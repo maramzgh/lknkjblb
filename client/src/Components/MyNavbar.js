@@ -5,20 +5,20 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ConnectButton from './ConnectButton';
 import * as Icon from 'react-bootstrap-icons';
 import { Button } from 'react-bootstrap';
 
-
 function MyNavbar(props) {
   const [searchValue, setSearchValue] = useState('');
-  //eslint-disable-next-line
+  // eslint-disable-next-line
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     console.log('Search Query:', searchValue);
@@ -26,13 +26,19 @@ function MyNavbar(props) {
     setSearchQuery(query);
     window.location.href = `/search?search=${query}`;
   };
+
+  const handleLoginSuccess = () => {
+    // Define your logic here when the login is successful
+    // For example, update the state or perform any necessary actions
+    console.log('Login successful');
+  };
   return (
     <div>
       <Navbar bg="transparent" expand="lg" className="Nav">
         <Container fluid>
           <Navbar.Brand className="Brand">
             <Link
-              to={'/'}
+              to="/"
               style={{
                 textDecoration: 'none',
                 color: '#000',
@@ -72,10 +78,16 @@ function MyNavbar(props) {
                   <Icon.Search className="SearchIcon" />
                 </Button>
               </Form>
-              
+              <Nav.Link as={Link} to="/compare" className="NavLink" style={{ color: 'black' }}>
+                Compare Sailboats
+              </Nav.Link>
+
             </Nav>
             
-            <ConnectButton className="ConnexionButton" />
+            
+            <ConnectButton onLoginSuccess={handleLoginSuccess} className="ConnexionButton" />
+         
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>

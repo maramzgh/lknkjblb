@@ -44,6 +44,7 @@ function App() {
                 element={<ConnectButton></ConnectButton>}
               ></Route>
                <Route path="/search" element={<SearchF />} />
+              
 
             </Routes>
           </Container>
