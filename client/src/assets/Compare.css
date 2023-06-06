@@ -1,0 +1,111 @@
+.title {
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  font-size: 2.5rem; /* Increase the font size */
+  font-weight: bold;
+  margin-top: 40px;
+  color: #000;
+}
+
+.Compare {
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: space-around;
+  margin: 40px;
+}
+
+.compare-button {
+  background-color: #0d5c75;
+  border: none;
+  border-radius: 5px;
+  font-family: "Arial", sans-serif;
+  font-size: 1.4rem; /* Increase the font size */
+  font-weight: bold;
+  padding: 10px 20px;
+  margin: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.compare-button:hover {
+  background-color: black;
+  font-family: "Arial", sans-serif;
+}
+
+.SailboatInfo {
+  display: flex;
+  justify-content: space-around;
+  font-family: "Arial", sans-serif;
+  margin-bottom: 40px;
+}
+
+.card {
+  font-family: "Arial", sans-serif;
+}
+
+.card .card-text {
+  font-weight: normal;
+}
+
+.card .card-text.bold {
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.card-info.card-title {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: 1.8rem; /* Increase the font size */
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+  gap: 100px;
+  margin-top: 40px;
+  margin-left: 200px; /* Add left margin */
+}
+
+.chartContainer {
+  margin-top: 20px;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: flex-start; /* Align the chart to the left */
+}
+
+.chart-title {
+  font-family: "Arial", sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.description-label {
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.chart-description {
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+  color: #777;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.description-text {
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+  text-align: left;
+}

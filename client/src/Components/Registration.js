@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComplete, onRegistrationFailure}) => {
+const Registration = ({
+  show,
+  setShow,
+  onRegistrationSuccess,
+  onRegistrationComplete,
+  onRegistrationFailure,
+}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
 
   const formData = { username, email, password };
   // eslint-disable-next-line
@@ -54,20 +59,20 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComp
   const handleClose = () => setShow(false);
   const handleBackButtonClick = () => {
     setShow(false);
-   
-};
+  };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Create an account</Modal.Title>
       </Modal.Header>
-  
+
       <Modal.Body>
         <Form onSubmit={handleRegistration}>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
+              name="username"
               type="text"
               placeholder="Enter username"
               value={username}
@@ -78,10 +83,11 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComp
               Username is required
             </Form.Control.Feedback>
           </Form.Group>
-  
+
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              name="email"
               type="email"
               placeholder="Enter email"
               value={email}
@@ -92,10 +98,11 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComp
               Email is required
             </Form.Control.Feedback>
           </Form.Group>
-  
+
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              name="password"
               type="password"
               placeholder="Password"
               value={password}
@@ -106,26 +113,26 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComp
               Password is required
             </Form.Control.Feedback>
           </Form.Group>
-          
+
           <Button
-              variant="primary"
-              type="submit"
-              onClick={handleClose}
-              style={{
-                backgroundColor: '#3f5c88',
-                border: 'none',
-                borderRadius: '5px',
-                fontSize: '1.2rem',
-                fontWeight: '500',
-                marginTop: '20px',
-                padding: '10px 20px',
-              }}
-              disabled={!username || !email || !password}
-            >
-              sign up
-            </Button>
-            
-            <Modal.Footer>
+            variant="primary"
+            type="submit"
+            onClick={handleClose}
+            style={{
+              backgroundColor: '#3f5c88',
+              border: 'none',
+              borderRadius: '5px',
+              fontSize: '1.2rem',
+              fontWeight: '500',
+              marginTop: '20px',
+              padding: '10px 20px',
+            }}
+            disabled={!username || !email || !password}
+          >
+            sign up
+          </Button>
+
+          <Modal.Footer>
             <Button
               variant="primary"
               type="submit"
@@ -138,18 +145,13 @@ const Registration = ({ show, setShow, onRegistrationSuccess, onRegistrationComp
                 fontWeight: '500',
                 padding: '10px 20px',
               }}
-              
             >
               Back
-            </Button></Modal.Footer>
-        
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal.Body>
     </Modal>
   );
-  
-    
-  
-}; 
+};
 export default Registration;
-

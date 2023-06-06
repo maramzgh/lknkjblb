@@ -1,61 +1,83 @@
-.Main {
-  margin-top: 2rem;
+.voilier-details {
+  margin: 2rem 0;
+  background-color: #f8f8f8;
 }
 
-.Title {
+.voilier-details__article {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  background-color: #f0f0f0;
+  border-radius: 50px;
+}
+
+.voilier-details__title {
   font-size: 2rem;
-  font-weight: bold;
   margin-bottom: 1rem;
+  color: #0d5c75;
 }
 
-.Details {
+.voilier-details__content {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  border: 3px solid grey;
 }
 
-.Left {
-  flex: 1;
-  max-width: 40%; /* Adjust the maximum width for the image container */
+.voilier-details__image-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.Left img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-}
-
-.Right {
   flex: 1;
-  max-width: 60%; /* Adjust the maximum width for the description container */
-  padding: 1rem; /* Add padding to the container */
-  background-color: rgb(200, 210, 220);
-  color: #333;
-  font-weight: normal;
+  margin-right: 2rem;
 }
 
-.Description {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+.voilier-details__image-container img {
+  width: 100%;
+  border-radius: 20%;
 }
 
-.Brand-title {
+.voilier-details__description-container {
+  flex: 1.5;
+}
+
+.voilier-details__description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.voilier-details__details-container {
+  display: flex;
+  border-top: 4px solid #ebebeb;
+  padding-top: 2rem;
+  margin-top: 3rem;
+}
+
+.voilier-details__price-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.voilier-details__price-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: #4a4e69;
+}
+.voilier-details__price {
+  font-size: 1.2rem;
+}
+
+.voilier-details__button-container {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+.voilier-details__button {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  background-color: #0d5c75;
+  border: none;
 }
 
-.Price {
-  font-size: 1.2rem;
-  font-weight: normal;
-  margin-bottom: 1rem;
-}
-
-.Button {
-  margin-top: 2rem;
+.voilier-details__button:hover {
+  background-color: #1c1e2d;
 }

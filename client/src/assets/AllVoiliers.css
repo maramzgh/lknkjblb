@@ -3,9 +3,16 @@
   flex-wrap: wrap;
 }
 .theSideBar {
-  flex: 1;
+  flex: 1.5;
   padding-right: 10px;
+  margin-left: 20px;
 }
 .theSailBoats {
-  flex: 5;
+  flex: 8;
 }
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+

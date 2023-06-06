@@ -10,9 +10,7 @@ const Voiliers = ({ voiliers }) => {
       {voiliers.map((voilier) => (
         <Card
           key={voilier._id}
-          style={{
-            width: '20%',
-          }}
+          
           className="m-3 hover-shadow"
         >
           <Link to={`/voiliers/${voilier._id}`} className="link-no-decoration">
@@ -28,7 +26,7 @@ const Voiliers = ({ voiliers }) => {
             <Card.Text className="text-center">{voilier.Prix}</Card.Text>
           </Card.Body>
           <Link to={`/voiliers/${voilier._id}`} className="link-no-decoration">
-            <Button variant="dark" className="w-100">
+          <Button style={{ backgroundColor: '#20636F' }} className="w-100">
               View more
             </Button>
           </Link>

@@ -10,6 +10,7 @@ import ConnectButton from './ConnectButton';
 import * as Icon from 'react-bootstrap-icons';
 import { Button } from 'react-bootstrap';
 
+
 function MyNavbar(props) {
   const [searchValue, setSearchValue] = useState('');
   // eslint-disable-next-line
@@ -34,7 +35,11 @@ function MyNavbar(props) {
   };
   return (
     <div>
-      <Navbar bg="transparent" expand="lg" className="Nav">
+      <Navbar
+        style={{ backgroundColor: '#d0ecf2' }}
+        expand="lg"
+        className="Nav"
+      >
         <Container fluid>
           <Navbar.Brand className="Brand">
             <Link
@@ -51,11 +56,26 @@ function MyNavbar(props) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-            <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-              <Nav.Link href="#action2" className="NavLink" style={{ color: 'black' }}>
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
+              <Nav.Link
+                as={Link}
+                to="/favorites"
+                className="NavLink"
+                style={{ color: 'black' }}
+              >
                 My Favorites
               </Nav.Link>
-              <Nav.Link href="/voiliers" className="NavLink" style={{ color: 'black' }}>
+
+              <Nav.Link
+                as={Link}
+                to="/voiliers"
+                className="NavLink"
+                style={{ color: 'black' }}
+              >
                 All sailboats
               </Nav.Link>
 
@@ -78,16 +98,19 @@ function MyNavbar(props) {
                   <Icon.Search className="SearchIcon" />
                 </Button>
               </Form>
-              <Nav.Link as={Link} to="/compare" className="NavLink" style={{ color: 'black' }}>
+              <Nav.Link
+                as={Link}
+                to="/compare"
+                className="NavLink"
+                style={{ color: 'black' }}
+              >
                 Compare Sailboats
               </Nav.Link>
-
             </Nav>
-            
-            
-            <ConnectButton onLoginSuccess={handleLoginSuccess} className="ConnexionButton" />
-         
-            
+            <ConnectButton
+              onLoginSuccess={handleLoginSuccess}
+              className="ConnexionButton"
+            />
           </Navbar.Collapse>
         </Container>
       </Navbar>

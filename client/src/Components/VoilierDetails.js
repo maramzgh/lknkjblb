@@ -1,69 +1,145 @@
-import { Button, Container } from 'react-bootstrap';
-
+import { Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-
-import '../assets/VoilierDetails.css';
 import useFetch from '../useFetch';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import '../assets/VoilierDetails.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import React, { useState } from 'react';
-
-function VoilierDetails() {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
-
+function VoilierDetails(props) {
   const { id } = useParams();
   const {
-    data: voiliers,
+    data: voilier,
     error,
     isPending,
-  } = useFetch('http://localhost:5000/voiliers/' + id);
+  } = useFetch(`http://localhost:5000/voiliers/${id}`);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    setFavorites(storedFavorites);
+  }, []);
+
+  const isFavorite = favorites.includes(id);
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      removeFavorite();
+    } else {
+      addFavorite();
+    }
+  };
+
+  const addFavorite = () => {
+    fetch(`http://localhost:5000/users/${props.userId}/favorite`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sailboatId: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedFavorites = [...favorites, id];
+        setFavorites(updatedFavorites);
+        updateLocalStorage(updatedFavorites);
+        toast.success('Sailboat added to favorites!', {
+          position: toast.POSITION.BOTTOM_LEFT,
+        });
+      })
+      .catch((error) => {
+        console.error('Error adding sailboat to favorites:', error);
+      });
+  };
+
+  const removeFavorite = () => {
+    fetch(`http://localhost:5000/users/${props.userId}/favorites/remove`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sailboatId: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedFavorites = favorites.filter(
+          (favoriteId) => favoriteId !== id
+        );
+        setFavorites(updatedFavorites);
+        updateLocalStorage(updatedFavorites);
+        toast.info('Sailboat removed from favorites');
+      })
+      .catch((error) => {
+        console.error('Error removing sailboat from favorites:', error);
+      });
+  };
+
+  const updateLocalStorage = (updatedFavorites) => {
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
   return (
-    <Container className="Main">
+    <div className="voilier-details">
       {isPending && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
-      {voiliers && (
-        <article>
-          <h1 className="Title">{voiliers.Nom}</h1>
-          <div className="Details">
-            <div className="Left">
-              <img 
-              src={require(`../y_imgs/${voiliers.Image}`)} 
-              alt={voiliers.Nom}
-               />
+      {voilier && (
+        <article className="voilier-details__article">
+          <h1 className="voilier-details__title">{voilier.Nom}</h1>
+          <div className="voilier-details__content">
+            <div className="voilier-details__image-container">
+              <img
+                src={require(`../y_imgs/${voilier.Image}`)}
+                alt={voilier.Nom}
+              />
             </div>
-            <div className="Right">
-              <div className="Description">{voiliers.Description}</div>
-
-              <div>
-                
-                <p className="Brand-title">{voiliers.Nom}</p>
-                <p className="Price">{voiliers.Prix}</p>
-                <p className="Button">
-                  
-                  <Link to={voiliers.Url}>
-                    <Button variant="dark">More details</Button>
+            <div className="voilier-details__description-container">
+              <p className="voilier-details__description">
+                {voilier.Description}
+              </p>
+              <div className="voilier-details__details-container">
+                {/* Rest of the code... */}
+                <div className="voilier-details__button-container">
+                  {props.loginSuccess && (
+                    <Button
+                      style={{ backgroundColor: '#f0f0f0', border: 'none' }}
+                      onClick={handleFavoriteClick}
+                    >
+                      {isFavorite ? (
+                        <FavoriteIcon
+                          style={{
+                            color: '#ff0000',
+                            fontSize: '40px',
+                            margin: '10px',
+                          }}
+                        />
+                      ) : (
+                        <FavoriteBorderIcon
+                          style={{
+                            color: '#0d5c75',
+                            fontSize: '40px',
+                            margin: '10px',
+                          }}
+                        />
+                      )}
+                    </Button>
+                  )}
+                  <Link to={voilier.Url}>
+                    <Button variant="dark" className="voilier-details__button">
+                      More Details
+                    </Button>
                   </Link>
-                  <button className="FavoriteButton" onClick={handleToggleFavorite}>
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className={ isFavorite ? 'FavoriteIcon active' : 'FavoriteIcon'}
-                  />
-
-                  </button>
-              
-                </p>
+                </div>
               </div>
             </div>
           </div>
         </article>
       )}
-    </Container>
+      <ToastContainer />{' '}
+      {/* Add ToastContainer component at the end of the component */}
+    </div>
   );
 }
 
-export default VoilierDetails;
+export default VoilierDetails; 

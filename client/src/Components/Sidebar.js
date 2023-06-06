@@ -7,8 +7,8 @@ import useFetch from '../useFetch';
 const Sidebar = ({
   priceRange,
   setPriceRange,
-  modèleFilter,
-  setModèleFilter,
+  marqueFilter,
+  setMarqueFilter,
   longueurFilter,
   setLongueurFilter,
   anneeFilter,
@@ -16,9 +16,7 @@ const Sidebar = ({
 }) => {
   const {
     data: voiliers,
-    // eslint-disable-next-line
     isPending,
-    // eslint-disable-next-line
     error,
   } = useFetch('http://localhost:5000/voiliers'); //Price Slider
   const pricesString =
@@ -33,7 +31,7 @@ const Sidebar = ({
           if (numericString) {
             return Number(numericString);
           } else {
-            // console.log(`Could not convert "${price}" to a number`);
+            // console.log(Could not convert "${price}" to a number);
           }
         }
         return null;
@@ -44,9 +42,9 @@ const Sidebar = ({
   const maxPrice = Math.max(...pricesString);
 
   //max display
-  const [maxDisplayModèle, setMaxDisplayModèle] = useState(10);
-  const handleShowMoreModèle = () => {
-    setMaxDisplayModèle(maxDisplayModèle + 5);
+  const [maxDisplayMarque, setMaxDisplayMarque] = useState(10);
+  const handleShowMoreMarque = () => {
+    setMaxDisplayMarque(maxDisplayMarque + 5);
   };
 
   const [maxDisplayLongueur, setMaxDisplayLongueur] = useState(10);
@@ -59,11 +57,11 @@ const Sidebar = ({
   };
 
   //avoid repetition
-  const modèles = voiliers?.map((voilier) => voilier.Fabricant) || [];
+  const marques = voiliers?.map((voilier) => voilier.Fabricant) || [];
   const longueurs = voiliers?.map((voilier) => voilier.Longueur) || [];
   const annees = voiliers?.map((voilier) => voilier.Année) || [];
 
-  const modèle = [...new Set(modèles)];
+  const marque = [...new Set(marques)];
   const longueur = [...new Set(longueurs)];
   const annee = [...new Set(annees)];
 
@@ -74,13 +72,13 @@ const Sidebar = ({
 
   //Marque
 
-  const handleModèleFilterChange = (event) => {
+  const handleMarqueFilterChange = (event) => {
     const brand = event.target.value;
     const isChecked = event.target.checked;
     if (isChecked) {
-      setModèleFilter([...modèleFilter, brand]);
+      setMarqueFilter([...marqueFilter, brand]);
     } else {
-      setModèleFilter(modèleFilter.filter((f) => f !== brand));
+      setMarqueFilter(marqueFilter.filter((f) => f !== brand));
     }
   };
   // Longueur
@@ -108,7 +106,7 @@ const Sidebar = ({
   return (
     <Container className="Sidebar ">
       <h2 className="Title">Filtrer</h2>
-      <p>Prix</p>
+      <p>Price</p>
       <Slider
         value={priceRange}
         onChange={handlePriceRangeChange}
@@ -116,28 +114,28 @@ const Sidebar = ({
         aria-labelledby="range-slider"
         min={minPrice}
         max={maxPrice}
-        style={{ maxWidth: '75% ', margin: '15px' }}
+        style={{ maxWidth: '75% ', margin: '15px', color: '#199FB1' }}
       ></Slider>
       <hr />
 
-      <p>Modèle</p>
+      <p>Brand</p>
       <Form>
-        {modèle.slice(0, maxDisplayModèle).map((m) => (
+        {marque.slice(0, maxDisplayMarque).map((m) => (
           <Form.Check
             key={m}
             type="checkbox"
             label={m}
             value={m}
-            onChange={handleModèleFilterChange}
+            onChange={handleMarqueFilterChange}
           ></Form.Check>
         ))}
       </Form>
-      {modèle.length > maxDisplayModèle && (
-        <Button variant="link" className="my-3" onClick={handleShowMoreModèle}>
-          {` (${modèle.length - maxDisplayModèle} more)`}
+      {marque.length > maxDisplayMarque && (
+        <Button variant="link" className="my-3" onClick={handleShowMoreMarque}>
+          {` (${marque.length - maxDisplayMarque} more)`}
         </Button>
       )}
-      <p>Longueur</p>
+      <p>Length</p>
       <Form>
         {longueur.slice(0, maxDisplayLongueur).map((l) => (
           <Form.Check
@@ -158,7 +156,7 @@ const Sidebar = ({
           {` (${longueur.length - maxDisplayLongueur} more)`}
         </Button>
       )}
-      <p>Année</p>
+      <p>Year</p>
       <Form>
         {annee.slice(0, maxDisplayAnnee).map((a) => (
           <Form.Check
@@ -180,3 +178,4 @@ const Sidebar = ({
 };
 
 export default Sidebar;
+

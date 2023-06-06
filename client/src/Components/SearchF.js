@@ -25,19 +25,19 @@ const SearchF = ({ searchQuery }) => {
         const Fabricant = voilier.Fabricant || '';
         const Description = voilier.Description || '';
         const Location = voilier.Location || '';
-        const Type = voilier.Type|| '';
+        const Type = voilier.Type || '';
         return (
+          searchValue && (
             Nom?.toLowerCase().includes(searchValue?.toLowerCase()) ||
             Modèle?.toLowerCase().includes(searchValue?.toLowerCase()) ||
             Fabricant?.toLowerCase().includes(searchValue?.toLowerCase()) ||
             Description?.toLowerCase().includes(searchValue?.toLowerCase()) ||
-            Location?.toLowerCase().includes(searchValue?.toLowerCase())||
+            Location?.toLowerCase().includes(searchValue?.toLowerCase()) ||
             Type?.toLowerCase().includes(searchValue?.toLowerCase())
-
-          );
-          
+          )
+        );
       });
-
+  
       setFilteredVoiliers(filtered);
       setLoading(false);
     }

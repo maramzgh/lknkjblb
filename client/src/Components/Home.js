@@ -1,8 +1,9 @@
+import React from 'react';
 import '../assets/Home.css';
-import Voiliers from './Voiliers';
+import Voiliers from '../Components/Voiliers';
 import useFetch from '../useFetch';
 
-import Banner from './Banner';
+import Banner from '../Components/Banner';
 
 function Home() {
   const {

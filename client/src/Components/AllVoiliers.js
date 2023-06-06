@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useFetch from '../useFetch';
-import Voiliers from './Voiliers';
-import Pagination from './Pagination';
-import Sidebar from './Sidebar';
+import Voiliers from '../Components/Voiliers';
+import Pagination from '../Components/Pagination';
+import Sidebar from '../Components/Sidebar';
 import '../assets/AllVoiliers.css';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const AllVoiliers = () => {
+  // eslint-disable-next-line
   const [voilierPerPage, setVoilierPerPage] = useState(20);
   const {
     data: voiliers,
     isPending,
     error,
   } = useFetch('http://localhost:5000/voiliers');
-
-  // price
   const pricesString =
     voiliers
       ?.map((voilier) => {
@@ -26,7 +26,7 @@ const AllVoiliers = () => {
           if (numericString) {
             return Number(numericString);
           } else {
-            // console.log(`Could not convert "${price}" to a number`);
+            // console.log(Could not convert "${price}" to a number);
           }
         }
         return null;
@@ -35,11 +35,8 @@ const AllVoiliers = () => {
 
   const minPrice = Math.min(...pricesString);
   const maxPrice = Math.max(...pricesString);
-  // console.log(minPrice);
-  // console.log(typeof minPrice);
-
   // states
-  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+  const [priceRange, setPriceRange] = useState([0, 100000000]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [marqueFilter, setMarqueFilter] = useState([]);
@@ -87,29 +84,54 @@ const AllVoiliers = () => {
         .replace(/[^\d.]/g, '')
         .replace(',', '.');
       const price = numericString ? Number(numericString) : null;
-      if (
-        marqueFilter.length === 0 &&
-        longueurFilter.length === 0 &&
-        anneeFilter.length === 0 &&
-        priceRange.length === 2 &&
-        // added priceRange check
-        price >= priceRange[0] &&
-        price <= priceRange[1]
-      )
-        return true;
-      const priceMatch = priceRange.includes(price);
+
+      const priceMatch = price >= priceRange[0] && price <= priceRange[1];
       const anneeMatch = anneeFilter.includes(voilier.Année);
       const marqueMatch = marqueFilter.includes(voilier.Fabricant);
       const longueurMatch = longueurFilter.includes(
-        voilier.Longueur.toString()
+        voilier.Longueur?.toString()
       );
-      return (
-        (marqueMatch && longueurMatch && anneeMatch && priceMatch) || // added priceMatch check
-        marqueMatch ||
-        longueurMatch ||
-        anneeMatch ||
-        priceMatch // added priceMatch check
-      );
+
+      // Check if any filter is applied
+      const hasFilter =
+        anneeFilter.length > 0 ||
+        marqueFilter.length > 0 ||
+        longueurFilter.length > 0 ||
+        priceRange[0] > 0 ||
+        priceRange[1] < maxPrice;
+
+      // Filter voiliers based on the selected filters
+      if (hasFilter) {
+        if (anneeFilter.length > 0) {
+          if (!anneeMatch) {
+            return false;
+          }
+        }
+
+        if (marqueFilter.length > 0) {
+          if (!marqueMatch) {
+            return false;
+          }
+        }
+
+        if (longueurFilter.length > 0) {
+          if (!longueurMatch) {
+            return false;
+          }
+        }
+
+        if (priceRange[0] > 0 || priceRange[1] < maxPrice) {
+          if (!priceMatch) {
+            return false;
+          }
+        }
+
+        // Return voiliers that match any of the filters
+        return marqueMatch || longueurMatch || anneeMatch || priceMatch;
+      }
+
+      // No filters applied, return all voiliers
+      return true;
     }) || [];
 
   const currentVoiliers = filtredVoiliers
@@ -119,7 +141,16 @@ const AllVoiliers = () => {
   return (
     <div>
       {error && <div className="error">{error}</div>}
-      {isPending && <div className="loading">Loading...</div>}
+      {isPending && (
+        <div className="loading">
+          <div>
+            <CircularProgress />
+          </div>
+          <div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      )}
       {voiliers && (
         <>
           <div className="Allsailboats">

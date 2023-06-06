@@ -3,11 +3,16 @@
   flex-direction: column;
   height: 100%;
   background-color: #f9f9f9;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .main-container {
-  padding: 30px;
   display: flex;
+  max-width: 100%; /* Set the maximum width of the container to 100% of the viewport */
+  padding: 0 20px; /* Add some padding to the sides to prevent content from sticking to the edges */
+  margin: 0 auto; /* Center the container horizontally */
+  overflow-y: hidden;
 }
 
 .title {

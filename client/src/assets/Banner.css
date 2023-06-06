@@ -21,7 +21,7 @@
 .slick-slide img {
   width: 100%;
   height: auto;
-  max-height: 600px; /* adjust this to change the maximum height of the images */
+  max-height: 700px; /* adjust this to change the maximum height of the images */
   object-fit: cover;
 }
 

@@ -40,6 +40,10 @@ const Yacht = mongoose.model(
     images: {
       type: String,
     },
+    visitors: {
+      type: Number,
+      default: 0,
+    },
   },
   'yachts'
 );
